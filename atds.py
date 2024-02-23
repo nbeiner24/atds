@@ -62,3 +62,40 @@ class Queue(object):
 
     def __repr__(self):
         return str(self.queue)
+
+class Deque(object):
+
+    def __init__(self):
+        self.deque = []
+
+    def add_front(self, item):
+        self.deque.append(item)
+
+    def add_rear(self, item):
+        self.deque.insert(0, item)
+
+    def remove_front(self):
+        return self.deque.pop()
+
+    def remove_rear(self):
+        return self.deque.pop(0)
+
+    def size(self):
+        return len(self.deque)
+
+    def is_empty(self):
+        if len(self.deque) == 0:
+            return True
+        else:
+            return False
+
+def main():
+    q = Queue()
+    q.enqueue("Roy")
+    q.enqueue("Patrick")
+    print(q)
+    q.dequeue()
+    print(q)
+
+if __name__ == "__main__":
+    main()
