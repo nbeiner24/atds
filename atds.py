@@ -88,14 +88,85 @@ class Deque(object):
             return True
         else:
             return False
+        
+class Node(object):
+
+    def __init__(self, data):
+        self.data = data
+        self.next = None
+
+    def set_data(self, data):
+        self.data = data
+
+    def get_data(self):
+        return self.data
+    
+    def set_next(self, next):
+        self.next = next
+
+    def get_next(self):
+        return self.next
+    
+    def __repr__(self):
+        return "Node[data=" + str(self.data) + ", next=" + str(self.next) + "]"
+
+class UnorderedList(object):
+    """Defines an unordered (unsorted) list"""
+    def __init__(self):
+        self.head = None
+
+    def add(self, new_data):
+        temp_node = Node(new_data)
+        temp_node.set_next(self.head)
+        self.head = temp_node
+
+    def length(self):
+        node_count = 0
+        current = self.head
+        while current != None:
+            current = current.get_next()
+            node_count += 1
+        return node_count
+    
+    def search(self, data):
+        i = self.head
+        while (i != None):
+            if (i.get_data() == data):
+                return True
+            else:
+                return False
+        return False
+
+    def remove(self, data):
+        prev = None
+        current = self.head
+        while (current != None):
+            if (current.get_data() == data):
+                if (prev == None):
+                    self.head = current.get_next()
+                else:
+                    prev.set_next(current.get_next())
+                return
+            else:
+                prev = current
+                current = current.get_next()
+
+    def __repr__(self):
+        result = "UnorderedList["
+        next_node = self.head
+        while next_node != None:
+            result += str(next_node.get_data()) + ","
+            next_node = next_node.get_next()
+        if result[-1] == ",":
+            result = result[:-1] # remove trailing comma
+        result = result + "]"
+        return result
 
 def main():
-    q = Queue()
-    q.enqueue("Roy")
-    q.enqueue("Patrick")
-    print(q)
-    q.dequeue()
-    print(q)
+    n = Node(3)
+    n2 = Node(5)
+    n.set_next(n2)
+    print(n)
 
 if __name__ == "__main__":
     main()
