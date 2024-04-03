@@ -256,6 +256,43 @@ class UnorderedListStack(object):
     def is_empty(self):
         return self.stack.is_empty()
 
+class HashTable():
+
+    def __init__(self, m):
+        self.size = m
+        self.keys = [None] * m
+        self.values = [None] * m
+
+    def put(self, key, value):
+        hashval = key % self.size
+        if self.keys[hashval] == None:
+            self.keys[hashval] = key
+            self.values[hashval] = value
+        elif self.keys[hashval] == key:
+            self.values[hashval] = value    
+        else:
+            nextkey = (hashval + 1) % self.size  
+            while self.keys[nextkey] != None and \
+                  self.keys[nextkey] != key:
+                nextkey = (nextkey + 1) % self.size
+            if self.keys[nextkey] == key:
+                self.values[nextkey] = value
+            else:
+                self.keys[nextkey] = key
+                self.values[nextkey] = value
+
+    def get(self, key):
+        hashval = key % self.size
+        while self.keys[hashval] != None and self.keys[hashval] != key:
+            hashval += 1
+        if self.keys[hashval] == key:
+            return self.values[hashval]
+        else:
+            return None
+    
+    def __repr__(self):
+        return ("Keys:   " + str(self.keys) + "\n" + "Values: " + str(self.values))
+
 def main():
     n = Node(3)
     n2 = Node(5)
